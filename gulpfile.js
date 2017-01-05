@@ -8,12 +8,12 @@ var sourcemaps=require('gulp-sourcemaps');
 var concat=require('gulp-concat');
 var gutil=require('gulp-util');
 
-gulp.task('clean', function(cb) {
-    del(['static'], cb);
+gulp.task('clean', function() {
+    return del(['static']);
 });
 
-gulp.task('scripts', ['jshint', 'vendorjs'], function() {
-    return gulp.src('src/js/**/*.js')
+gulp.task('scripts', ['clean', 'jshint', 'vendorjs'], function() {
+    gulp.src('src/js/**/*.js')
         .pipe(sourcemaps.init())
             .pipe(concat('bundle.js'))
             .pipe(gutil.env.type==='production' ? uglify() : gutil.noop())
@@ -22,13 +22,13 @@ gulp.task('scripts', ['jshint', 'vendorjs'], function() {
 });
 
 gulp.task('jshint', function() {
-    return gulp.src('src/js/**/*.js')
+    gulp.src('src/js/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'));
 })
 
 gulp.task('vendorjs', function() {
-    return gulp.src([
+    gulp.src([
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap_sass/assets/javascripts/bootstrap.js',
             ])
@@ -39,10 +39,10 @@ gulp.task('vendorjs', function() {
         .pipe(gulp.dest('static/js/'));
 })
 
-gulp.task('styles', function() {
+gulp.task('styles', ['clean'], function() {
     var injectFiles=gulp.src('src/css/_*.scss', {read:false});
     var transform = function(filepath) { return '@import "' + filepath + '";'; };
-    return gulp.src('src/css/main.scss')
+    gulp.src('src/css/main.scss')
         .pipe(sourcemaps.init())
         .pipe(wiredep())
         .pipe(
@@ -69,9 +69,9 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('static/css'));
 });
 
-gulp.task('html', ['styles','scripts'], function() {
+gulp.task('html', ['clean', 'styles', 'scripts'], function() {
     var injectFiles=gulp.src(['static/css/main.css']);    
-    return gulp.src('src/index.html')
+    gulp.src('src/index.html')
         .pipe(inject(injectFiles, {
             addRootSlash: false,
             ignorePath: ['src','static']
@@ -79,4 +79,4 @@ gulp.task('html', ['styles','scripts'], function() {
         .pipe(gulp.dest('static'));
 });
 
-gulp.task('default', ['clean', 'html']);
+gulp.task('default', ['html']);
