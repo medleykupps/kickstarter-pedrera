@@ -30,7 +30,13 @@ console.log(`Build: ${BUILD}`);
 
 // ---
 gulp.task('clean', function(cb) {
-    return del([BUILD + '/js', BUILD + '/css', BUILD + '/templates'], BUILD + '/fonts');
+    return del([
+        BUILD + '/*.*',
+        BUILD + '/js', 
+        BUILD + '/css', 
+        BUILD + '/templates', 
+        BUILD + '/fonts'
+    ]);
 });
 // ---
 
@@ -137,19 +143,27 @@ gulp.task('styles', function() {
             .pipe(sass())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(BUILD + '/css'));
+
+    // Include any other bundle that may exist but do not inject anything into it
+    gulp.src(CSS + '/!(main).scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(BUILD + '/css'));
+
 });
 // ---
 
 
 
 gulp.task('html', ['templates', 'fonts', 'styles', 'scripts'], function() {
-    var injectFiles=gulp.src(['static/css/main.css']);    
-    return gulp.src('src/index.html')
+    var injectFiles=gulp.src([CSS + '/main.scss']);
+    return gulp.src(ROOT + '/index.html')
         .pipe(inject(injectFiles, {
             addRootSlash: false,
             ignorePath: ['src','static']
         }))
-        .pipe(gulp.dest('static'));
+        .pipe(gulp.dest(BUILD));
 });
 
 gulp.task('default', ['html']);
