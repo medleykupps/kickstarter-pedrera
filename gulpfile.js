@@ -8,6 +8,7 @@ var sourcemaps=require('gulp-sourcemaps');
 var concat=require('gulp-concat');
 var gutil=require('gulp-util');
 var uglify=require('gulp-uglify');
+var templateCache = require('gulp-angular-templatecache');
 
 
 
@@ -37,7 +38,14 @@ gulp.task('clean', function(cb) {
 
 // ---
 gulp.task('templates', function () {
+    var moduleSystem = 'IIFE'; // Also, 'RequireJS','Browserfy','IIFE','ES6'
     return gulp.src([TEMPLATES + '/**/*.html'])
+        .pipe(templateCache('kickstarter-templates.js', {
+            root: '/js/kickstarter/templates',
+            standalone: true,
+            module: 'kickstarter.templates',
+            moduleSystem: moduleSystem
+        }))
         .pipe(gulp.dest(BUILD + '/templates'));
 });
 // ---
