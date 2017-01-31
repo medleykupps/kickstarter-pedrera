@@ -1,7 +1,7 @@
 {
   "name": "pedrera-kickstarter",
   "version": "1.0.0",
-  "description": "",
+  "description": "Kickstarter project for Pedrera projects",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,7 @@
     "gulp-jshint": "^2.0.4",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.2.0",
+    "gulp-uglify": "^2.0.1",
     "gulp-util": "^3.0.7",
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",
