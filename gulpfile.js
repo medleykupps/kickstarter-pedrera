@@ -8,6 +8,7 @@ var sourcemaps=require('gulp-sourcemaps');
 var concat=require('gulp-concat');
 var gutil=require('gulp-util');
 var uglify=require('gulp-uglify');
+var watch=require('gulp-watch');
 var templateCache = require('gulp-angular-templatecache');
 
 
@@ -166,4 +167,12 @@ gulp.task('html', ['templates', 'fonts', 'styles', 'scripts'], function() {
         .pipe(gulp.dest(BUILD));
 });
 
+// - Watch ---
+gulp.task('watch', ['html'], function() {
+    watch(ROOT + '/**/*.*', function() {
+        gulp.start('html');
+    });
+});
+
+// - Default ---
 gulp.task('default', ['html']);
