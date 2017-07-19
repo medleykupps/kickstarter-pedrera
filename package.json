@@ -20,8 +20,12 @@
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.11",
+    "jasmine-core": "^2.6.4",
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
     "wiredep": "^4.0.0"
   }
 }
