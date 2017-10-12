@@ -3,6 +3,7 @@ describe('Patients factory', function() {
     var Patients;
 
     // Load our module were our service resides
+    beforeEach(angular.mock.module('ui.router'));
     beforeEach(angular.mock.module('app.patients'));
 
     beforeEach(inject(function(_Patients_) {

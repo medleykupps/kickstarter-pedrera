@@ -18,11 +18,15 @@ module.exports = function(config) {
       './bower_components/angular/angular.js',
       './bower_components/angular-ui-router/release/angular-ui-router.js',
       './bower_components/angular-mocks/angular-mocks.js',
+      './src/js/patients/patients.module.js',
       './src/js/patients/patients.service.js',
+      './src/js/patients/patients-profile.service.js',
+      './src/js/patients/patients.controller.js',      
       './src/js/app.js',
-      './src/js/patients/patients.service.spec.js'
+      './src/js/patients/**/*.spec.js'      
     ],
 
+    //'./src/js/patients/patients.service.spec.js'
 
     // list of files to exclude
     exclude: [

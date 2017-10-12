@@ -2,7 +2,7 @@
 
     'use strict';
 
-    angular.module('app.patients', [])
+    angular.module('app.patients')
         .factory('Patients', function() {
 
             var Patients = {};
